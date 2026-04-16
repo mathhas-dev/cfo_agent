@@ -1,0 +1,93 @@
+tables:
+  - name: fact_pnl
+    description: "Fatos de P&L (Profit & Loss) consolidados por mês e centro de custo"
+    columns:
+      - name: id
+        type: BIGINT
+        description: "Identificador único do registro"
+      - name: mes_ref
+        type: VARCHAR(7)
+        description: "Mês de referência no formato YYYY-MM"
+      - name: centro_custo_id
+        type: INT
+        description: "Chave estrangeira para dim_centro_custo"
+      - name: receita_bruta
+        type: DECIMAL(18,2)
+        description: "Receita bruta antes de deduções fiscais, em BRL"
+      - name: deducoes_fiscais
+        type: DECIMAL(18,2)
+        description: "PIS, COFINS e outras deduções fiscais, em BRL"
+      - name: receita_liquida
+        type: DECIMAL(18,2)
+        description: "Receita líquida após deduções fiscais (receita_bruta - deducoes_fiscais), em BRL"
+      - name: cmv
+        type: DECIMAL(18,2)
+        description: "Custo das mercadorias vendidas (CMV), em BRL"
+      - name: lucro_bruto
+        type: DECIMAL(18,2)
+        description: "Lucro bruto (receita_liquida - cmv), em BRL"
+      - name: despesas_operacionais
+        type: DECIMAL(18,2)
+        description: "Total de despesas operacionais (SG&A), em BRL"
+      - name: ebitda_brl
+        type: DECIMAL(18,2)
+        description: "EBITDA consolidado em BRL, calculado mensalmente por centro de custo"
+      - name: depreciacao_amortizacao
+        type: DECIMAL(18,2)
+        description: "Depreciação e amortização do período, em BRL"
+      - name: ebit_brl
+        type: DECIMAL(18,2)
+        description: "EBIT — lucro antes de juros e impostos, em BRL"
+      - name: resultado_financeiro
+        type: DECIMAL(18,2)
+        description: "Resultado financeiro líquido (receitas menos despesas financeiras), em BRL"
+      - name: lair
+        type: DECIMAL(18,2)
+        description: "Lucro antes do imposto de renda (LAIR), em BRL"
+      - name: ir_csll
+        type: DECIMAL(18,2)
+        description: "Imposto de renda e contribuição social sobre lucro líquido, em BRL"
+      - name: lucro_liquido
+        type: DECIMAL(18,2)
+        description: "Lucro líquido do período, em BRL"
+
+  - name: dim_centro_custo
+    description: "Dimensão de centros de custo e unidades de negócio"
+    columns:
+      - name: id
+        type: INT
+        description: "Identificador único do centro de custo"
+      - name: codigo
+        type: VARCHAR(20)
+        description: "Código interno do centro de custo"
+      - name: nome
+        type: VARCHAR(100)
+        description: "Nome do centro de custo"
+      - name: regiao
+        type: VARCHAR(50)
+        description: "Região geográfica: Sul, Sudeste, Norte, Nordeste, Centro-Oeste"
+      - name: segmento
+        type: VARCHAR(50)
+        description: "Segmento de negócio: Varejo, Atacado, E-commerce, B2B"
+
+  - name: dim_tempo
+    description: "Dimensão de tempo para análises mensais"
+    columns:
+      - name: mes_ref
+        type: VARCHAR(7)
+        description: "Mês de referência no formato YYYY-MM (chave primária)"
+      - name: ano
+        type: INT
+        description: "Ano do período"
+      - name: mes
+        type: INT
+        description: "Mês numérico (1-12)"
+      - name: trimestre
+        type: INT
+        description: "Trimestre do ano (1-4)"
+      - name: semestre
+        type: INT
+        description: "Semestre do ano (1-2)"
+      - name: nome_mes
+        type: VARCHAR(20)
+        description: "Nome do mês em português: Janeiro, Fevereiro, Março, etc."

@@ -1,0 +1,20 @@
+You are an expert T-SQL developer for Microsoft SQL Server.
+Given the database schema below and a question in Portuguese, generate a single SELECT query that answers the question accurately.
+
+## Database Schema
+
+{{ schema_context }}
+
+## Rules
+
+- Generate ONLY a SELECT statement — no INSERT, UPDATE, DELETE, DROP, or any other mutation
+- Use T-SQL syntax compatible with SQL Server 2019+
+- Use meaningful table aliases for readability
+- Do NOT include a trailing semicolon
+- Do NOT explain the query — return only the SQL
+
+## Question
+
+{{ question }}
+
+## SQL Query
